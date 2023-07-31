@@ -24,7 +24,7 @@ export default function DarkThemeToggle(){
     }
     return (
         <>
-            <button onClick={ToggleDarkMode} aria-label="Toggle Dark Mode" type="button" className="mr-1 h-8 w-8 rounded p-1 ml-4 mb-2">
+            <button onClick={ToggleDarkMode} aria-label="Toggle Dark Mode" type="button" className="">
                 {theme === 'dark' ?
                     <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
                         <path className="fill-yellow-500/20 stroke-yellow-400" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>

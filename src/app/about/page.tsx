@@ -12,7 +12,7 @@ export default async function Home() {
         <>
             <div className={'mb-4 px-8 py-2 shadow-lg shadow-slate-500/30'}>
                 <div className={'flex justify-center'}>
-                    <h1 className={'text-3xl p-2 '}>{title}</h1>
+                    <h1 className={'text-6xl p-2 font-semibold uppercase'}>{title}</h1>
                 </div>
                 <MarkdownViewer content={content!} />
             </div>
