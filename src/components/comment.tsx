@@ -4,10 +4,9 @@ import {useEffect, useState} from "react";
 import {DARK_THEME_EVENT} from "@/constants";
 
 export default function BlogComment({term}: {term:string}){
-    const [theme, setTheme] = useState('light')
+    const [theme, setTheme] = useState('')
 
     useEffect(() => {
-
         const handleTheme = () => {
             setTheme(localStorage.theme)
         }

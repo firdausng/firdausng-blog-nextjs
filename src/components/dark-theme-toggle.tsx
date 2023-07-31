@@ -4,11 +4,10 @@ import Link from "next/link";
 import {useEffect, useState} from "react";
 import {DARK_THEME_EVENT} from "@/constants";
 export default function DarkThemeToggle(){
-    const [theme, setTheme] = useState('light')
+    const [theme, setTheme] = useState('')
 
     useEffect(()=>{
-        setTheme(localStorage.theme)
-        ToggleDarkMode()
+        setThemeFromLocalStorage()
     },[]);
 
     function ToggleDarkMode(){
@@ -22,6 +21,18 @@ export default function DarkThemeToggle(){
         setTheme(localStorage.theme)
         window.dispatchEvent(new Event(DARK_THEME_EVENT))
     }
+
+    function setThemeFromLocalStorage(){
+        if (localStorage.theme === 'light') {
+            document.documentElement.classList.remove('dark')
+        } else {
+            document.documentElement.classList.add('dark')
+        }
+        setTheme(localStorage.theme)
+        window.dispatchEvent(new Event(DARK_THEME_EVENT))
+    }
+
+
     return (
         <>
             <button onClick={ToggleDarkMode} aria-label="Toggle Dark Mode" type="button" className="">
