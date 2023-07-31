@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+##
+move to netlify after https://github.com/netlify/next-runtime/issues/2089 is resolved
 
 ## Getting Started
 
