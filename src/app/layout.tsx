@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} container mx-auto bg-white dark:bg-gray-900 dark:text-white`}>
+      <body className={`${roboto.className} container mx-auto bg-gradient-to-r from-slate-50 to-slate-200 dark:bg-gradient-to-r dark:from-slate-700 dark:to-slate-900 dark:text-white`}>
         <Header />
         <main className="">
           {children}

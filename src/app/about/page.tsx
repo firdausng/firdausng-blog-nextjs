@@ -10,11 +10,14 @@ export default async function Home() {
     const {content, title} = await getAboutPageData();
     return (
         <>
-            <div className={'mb-4 px-8 py-2 shadow-lg shadow-slate-500/30'}>
-                <div className={'flex justify-center'}>
-                    <h1 className={'text-6xl p-2 font-semibold uppercase'}>{title}</h1>
+            <div className={'mb-4 px-8 py-2 shadow-lg shadow-slate-500/30 flex lg:flex-col gap-16 justify-center'}>
+                <div className={'flex flex-col justify-center'}>
+                    <h1 className={'text-5xl p-2 font-semibold uppercase text-center shadow-lg shadow-slate-500/20 border border-slate-500'}>{title}</h1>
                 </div>
-                <MarkdownViewer content={content!} />
+                <div className={"max-w-3xl lg:max-w-max"}>
+                    <MarkdownViewer content={content!} />
+                </div>
+
             </div>
         </>
     )

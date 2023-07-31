@@ -7,7 +7,7 @@ draft: false
 excerpt: ''
 ---
 
-# About This Blog
+# This Blog
 
 Welcome to Firdausng, a blog created to share my experiences and learning as I journey into the app development. 
 It will cover tutorials and explanations of app developments, as well as detailing any problems encountered along the way! My goal is to share any useful information I find, in the hope that it will be helpful for someone else. 
