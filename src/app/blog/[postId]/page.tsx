@@ -25,7 +25,7 @@ export default async function BlogDetail(props: ProjectPageProps){
         return <NotFoundSection />
     }
 
-    if(!data.draft){
+    if(data.draft){
         return <NotFoundSection />
     }
 
