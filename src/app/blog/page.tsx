@@ -2,22 +2,29 @@ import {getSortedPostsData} from "@/lib/posts";
 import Link from "next/link";
 import Image from "next/image";
 import {oswald} from "@/app/fonts";
+import Logo from "@/components/logo";
 
 const Blog = async () =>{
     const allPostsData = await getSortedPostsData();
     return (
         <div className={'flex flex-col mx-2 gap-3'}>
             {allPostsData.map(post =>(
-                <div key={post.slug} className={'py-2 hover:shadow-lg'}>
-                    <div className={'flex gap-3 divide-x '} >
-                        <div className={'w-64 rounded-lg mr-3 p-2 flex-none'}>
-                            <Image
-                                className="object-cover h-48 w-full border-2 border-slate-50 rounded-2xl shadow-inner hover:shadow-lg"
-                                src={ post.bannerImageExtension ? `/${post.slug}.${post.bannerImageExtension}` : '/firdausng_logo.png'}
-                                alt={post.title}
-                                width={500}
-                                height={500}
-                            />
+                <div key={post.slug} className={'p-2 hover:shadow-lg border-2 border-slate-500 dark:border-slate-50 rounded-3xl shadow-lg shadow-slate-700/20 dark:shadow-slate-50/20'}>
+                    <div className={'flex gap-3 divide-x'} >
+                        <div className={'w-64 mr-3 p-2 flex-none'}>
+                            {post.bannerImageExtension
+                                ? <Image
+                                    className="object-cover h-48 w-full border-1 border-slate-500 dark:border-slate-50 rounded-3xl shadow-lg shadow-slate-700/20 dark:shadow-slate-50/20"
+                                    src={ post.bannerImageExtension ? `/${post.slug}.${post.bannerImageExtension}` : '/firdausng_logo.png'}
+                                    alt={post.title}
+                                    width={500}
+                                    height={500}
+                                />
+                                : <div className={""}>
+                                    <Logo />
+                                </div>
+                            }
+
                         </div>
                         <div className={'flex flex-col pl-8 gap-3 justify-center'}>
                             <div>

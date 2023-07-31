@@ -36,7 +36,7 @@ export async function getSortedPostsData() {
     });
     const allPostsData = await Promise.all(allPostsDataPromises);
     // Sort posts by date
-    return allPostsData.sort((a, b) => {
+    return allPostsData.filter(post => !post.draft).sort((a, b) => {
         if (a.date < b.date) {
             return 1;
         } else {
@@ -84,7 +84,7 @@ export async function getSortedPostsDataWithContent() {
     });
     const allPostsData = await Promise.all(allPostsDataPromises);
     // Sort posts by date
-    return allPostsData.sort((a, b) => {
+    return allPostsData.filter(post => !post.draft).sort((a, b) => {
         if (a.date < b.date) {
             return 1;
         } else {
@@ -94,34 +94,38 @@ export async function getSortedPostsDataWithContent() {
 }
 
 export async function getPostsDataBySlug(slug: string) {
-    // Get file names under /posts
-    const fileNames = fs.readdirSync(postsDirectory);
-    // Read markdown file as string
-    const fullPath = path.join(postsDirectory, slug, 'index.md');
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    try {
+        // Get file names under /posts
+        const fileNames = fs.readdirSync(postsDirectory);
+        // Read markdown file as string
+        const fullPath = path.join(postsDirectory, slug, 'index.md');
+        const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
+        // Use gray-matter to parse the post metadata section
+        const matterResult = matter(fileContents);
 
-    const processedContent = await remark()
-        .use(remarkToc)
-        .use(remarkRehype)
-        .use(rehypeSlug)
-        .use(rehypeStringify)
-        .process(matterResult.content);
-    const contentHtml = processedContent.toString();
-    console.log()
+        const processedContent = await remark()
+            .use(remarkToc)
+            .use(remarkRehype)
+            .use(rehypeSlug)
+            .use(rehypeStringify)
+            .process(matterResult.content);
+        const contentHtml = processedContent.toString();
 
-    const blogPost:BlogPost = {
-        slug:matterResult.data.slug,
-        title: matterResult.data.title,
-        date: matterResult.data.date,
-        tags: matterResult.data.tags ?? [],
-        draft: matterResult.data.draft ?? true,
-        bannerImageExtension:matterResult.data.bannerImageExtension ?? null,
-        excerpt: matterResult.data.excerpt ?? '',
-        content: contentHtml
-    };
-    // Sort posts by date
-    return blogPost;
+        const blogPost:BlogPost = {
+            slug:matterResult.data.slug,
+            title: matterResult.data.title,
+            date: matterResult.data.date,
+            tags: matterResult.data.tags,
+            draft: matterResult.data.draft ?? true,
+            bannerImageExtension:matterResult.data.bannerImageExtension,
+            excerpt: matterResult.data.excerpt,
+            content: contentHtml
+        };
+        // Sort posts by date
+        return blogPost;
+    }catch (e) {
+        console.error("error occurred", JSON.stringify(e, null, 2))
+        return null;
+    }
 }

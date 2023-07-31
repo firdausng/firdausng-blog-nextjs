@@ -1,6 +1,7 @@
 import {getPostsDataBySlug, getSortedPostsData, getSortedPostsDataWithContent} from "@/lib/posts";
 import BlogComment from "@/components/comment";
 import MarkdownViewer from "@/components/markdown-viewer";
+import {NotFound} from "next/dist/client/components/error";
 
 export async function generateStaticParams(){
     const data = await getSortedPostsDataWithContent();
@@ -20,6 +21,14 @@ interface ProjectPageProps {
 export default async function BlogDetail(props: ProjectPageProps){
     const {postId} = props.params;
     const data = await getPostsDataBySlug(postId);
+    if(data === null){
+        return <NotFoundSection />
+    }
+
+    if(!data.draft){
+        return <NotFoundSection />
+    }
+
     return (
         <>
             <div className={'mb-4 px-8 bg-slate-50 dark:bg-slate-800 py-2 shadow-lg shadow-slate-200/20 dark:shadow-slate-500/20 border border-slate-200 dark:border-slate-800 relative'}>
@@ -36,3 +45,12 @@ export default async function BlogDetail(props: ProjectPageProps){
     )
 }
 
+function NotFoundSection(){
+    return (
+        <>
+            <div className={'mb-4 px-8 bg-slate-50 dark:bg-slate-800 py-2 shadow-lg shadow-slate-200/20 dark:shadow-slate-500/20 border border-slate-200 dark:border-slate-800 relative'}>
+                <NotFound />
+            </div>
+        </>
+    )
+}
